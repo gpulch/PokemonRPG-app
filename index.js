@@ -8,7 +8,6 @@ const collisionsMap = [];
 for (let i = 0; i < collisions.length; i += 70) {
   collisionsMap.push(collisions.slice(i, 70 + i));
 }
-console.log(collisionsMap);
 
 const boundaries = [];
 const offset = {
@@ -63,7 +62,7 @@ const player = new Sprite({
 });
 
 const background = new Sprite({
-  position: { x: offset.x, y: offset.y },
+  position: { x: offset.x, y: offset.y + 24 },
   image: image,
 });
 
@@ -84,11 +83,15 @@ const movables = [background, ...boundaries, foreground];
 
 // detects collision from All 4 sides of player
 function rectangularCollision({ rectangle1, rectangle2 }) {
+  const playerLeftCollision = rectangle1.width - 18;
+  const playerRightCollision = rectangle2.height - 18;
+  const playerBottomCollision = rectangle1.height - 8;
+  const playerTopCollision = rectangle2.height - 28;
   return (
-    rectangle1.position.x + rectangle1.width >= rectangle2.position.x &&
-    rectangle1.position.x <= rectangle2.position.x + rectangle2.width &&
-    rectangle1.position.y <= rectangle2.position.y + rectangle2.height &&
-    rectangle1.position.y + rectangle1.height >= rectangle2.position.y
+    rectangle1.position.x + playerRightCollision >= rectangle2.position.x &&
+    rectangle1.position.x <= rectangle2.position.x + playerLeftCollision &&
+    rectangle1.position.y <= rectangle2.position.y + playerTopCollision &&
+    rectangle1.position.y + playerBottomCollision >= rectangle2.position.y
   );
 }
 
@@ -100,7 +103,7 @@ function animate() {
   });
 
   player.draw(); // rendering player
-//   foreground.draw(); // rendering foreground
+  foreground.draw(); // rendering foreground
 
   let moving = true;
   player.moving = false;
