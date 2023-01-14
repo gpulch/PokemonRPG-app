@@ -12,8 +12,8 @@ console.log(collisionsMap);
 
 const boundaries = [];
 const offset = {
-  x: -640,
-  y: -380,
+  x: -160,
+  y: -200,
 };
 
 // converting json collision map to true false boundaries on grid
@@ -32,7 +32,8 @@ collisionsMap.forEach((row, i) => {
 });
 
 const image = new Image();
-image.src = "./img/Pokemon Style Game Map.png";
+// image.src = "./img/Pokemon Style Game Map.png";
+image.src = "./img/Pokemon Style Game Map v2.png";
 
 const foregroundImage = new Image();
 foregroundImage.src = "./img/foregroundObjects.png";
@@ -99,7 +100,7 @@ function animate() {
   });
 
   player.draw(); // rendering player
-  foreground.draw(); // rendering foreground
+//   foreground.draw(); // rendering foreground
 
   let moving = true;
   player.moving = false;
